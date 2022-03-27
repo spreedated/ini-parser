@@ -19,8 +19,9 @@ using IniParser.Model;
 INI data is stored in nested dictionaries, so accessing the value associated to a key in a section is straightforward. Load the data using one of the provided methods.
 
 ```csharp
-var parser = new FileIniDataParser();
-IniData data = parser.ReadFile("Configuration.ini");
+string myINI = "[welcome]\nhello=world";
+var parser = new IniDataParser();
+IniData data = parser.Parse(myINI);
 ```
 
 Retrieve the value for a key inside of a named section. Values are always retrieved as `string`s.
