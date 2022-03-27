@@ -331,7 +331,7 @@ namespace IniParser.Parser
         }
 
         TextReader _dataSource;
-        List<char> _buffer;
+        readonly List<char> _buffer;
         Range _bufferIndexes;
     }
 }

@@ -49,7 +49,7 @@ namespace IniParser.Model
             foreach(var sectionData in ori)
             {
                 _sections.Add(sectionData.Name, sectionData.DeepClone());
-            };
+            }
         }
 
         #endregion

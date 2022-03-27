@@ -1,3 +1,5 @@
+#pragma warning disable S3925
+
 using System;
 
 namespace IniParser.Exceptions
@@ -33,7 +35,7 @@ namespace IniParser.Exceptions
             LineContents = lineContents;
         }
 
-        private Version GetAssemblyVersion()
+        private static Version GetAssemblyVersion()
         {
             return System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
         }

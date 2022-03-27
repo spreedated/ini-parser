@@ -1,3 +1,5 @@
+#pragma warning disable S1450
+
 using System;
 using System.Collections.Generic;
 
@@ -167,7 +169,7 @@ namespace IniParser.Model
         #region Fields
         List<string> _comments;
         private string _name;
-        readonly IEqualityComparer<string> _searchComparer;
+        private readonly IEqualityComparer<string> _searchComparer;
         #endregion
     }
 }

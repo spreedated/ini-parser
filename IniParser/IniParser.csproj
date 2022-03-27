@@ -15,12 +15,13 @@ Also implements merging operations, both for complete ini files, sections, or ev
 		<SignAssembly>True</SignAssembly>
 		<AssemblyOriginatorKeyFile>Properties\publickey.snk</AssemblyOriginatorKeyFile>
 		<OutputType>Library</OutputType>
-		<GenerateDocumentationFile>True</GenerateDocumentationFile>
+		<GenerateDocumentationFile Condition="$(Configuration) == 'Release'">True</GenerateDocumentationFile>
 		<PackageTags>ini, parser, configuration, config, inifile, cfg, ini file</PackageTags>
 		<PackageId>ini-parser</PackageId>
 		<Product>INI Parser</Product>
 		<ReleaseVersion></ReleaseVersion>
     <LangVersion>latest</LangVersion>
+    <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">True</GeneratePackageOnBuild>
 	</PropertyGroup>
 
 	<PropertyGroup>
@@ -29,9 +30,6 @@ Also implements merging operations, both for complete ini files, sections, or ev
 		<Copyright>Ricardo Amores Hernández 2009-2019</Copyright>
 		<PackageIcon>nuget-ini-icon.png</PackageIcon>
 	</PropertyGroup>
-    <PropertyGroup Condition="'$(MSBuildRuntimeType)'=='Full'">
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    </PropertyGroup>
     <ItemGroup>
       <None Include="..\assets\nuget-ini-icon.png">
         <Pack>True</Pack>

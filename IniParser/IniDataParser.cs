@@ -6,7 +6,6 @@ using System.Collections.ObjectModel;
 using System.IO;
 using IniParser.Parser;
 using IniParser.Model;
-using static IniParser.Parser.StringBuffer;
 
 namespace IniParser
 {
@@ -304,22 +303,19 @@ namespace IniParser
             _currentSectionNameTemp = sectionName;
 
             //Checks if the section already exists
-            if (!Configuration.AllowDuplicateSections)
+            if (!Configuration.AllowDuplicateSections && iniData.Sections.Contains(sectionName))
             {
-                if (iniData.Sections.Contains(sectionName))
-                {
                     if (Configuration.SkipInvalidLines) return false;
 
-                    var errorFormat = "Duplicate section with name '{0}'. Please see configuration option {1}.{2} to ignore this error.";
-                    var errorMsg = string.Format(errorFormat,
-                                                 sectionName,
-                                                 nameof(Configuration),
-                                                 nameof(Configuration.SkipInvalidLines));
+                var errorFormat = "Duplicate section with name '{0}'. Please see configuration option {1}.{2} to ignore this error.";
+                var errorMsg = string.Format(errorFormat,
+                                                sectionName,
+                                                nameof(Configuration),
+                                                nameof(Configuration.SkipInvalidLines));
 
-                    throw new ParsingException(errorMsg,
-                                               _currentLineNumber,
-                                               currentLine.DiscardChanges().ToString());
-                }
+                throw new ParsingException(errorMsg,
+                                            _currentLineNumber,
+                                            currentLine.DiscardChanges().ToString());
             }
 
             // If the section does not exists, add it to the ini data
