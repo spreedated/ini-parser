@@ -1,4 +1,4 @@
-﻿namespace IniParser
+﻿namespace IniParser.Model
 {
     /// <summary>
     /// Creates a deep copy of the type T, meaning that all reference types get

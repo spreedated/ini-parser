@@ -1,4 +1,6 @@
-﻿namespace IniParser.Configuration
+﻿using IniParser.Model;
+
+namespace IniParser.Configuration
 {
     /// <summary>
     /// This structure defines the format of the INI file by customization the characters used to define sections

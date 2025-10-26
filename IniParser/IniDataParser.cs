@@ -10,9 +10,9 @@ using System.IO;
 namespace IniParser
 {
     /// <summary>
-  ///   Responsible for parsing an string from an ini file, and creating
-  ///   an <see cref="IniData"/> structure.
-  /// </summary>
+    ///   Responsible for parsing an string from an ini file, and creating
+    ///   an <see cref="IniData"/> structure.
+    /// </summary>
     public partial class IniDataParser
     {
         #region Initialization
@@ -21,9 +21,9 @@ namespace IniParser
         /// </summary>
         public IniDataParser()
         {
-            Scheme = new IniScheme();
-            Configuration = new IniParserConfiguration();
-            _errorExceptions = new List<Exception>();
+            this.Scheme = new();
+            this.Configuration = new();
+            this._errorExceptions = [];
         }
 
         #endregion
@@ -65,7 +65,7 @@ namespace IniParser
         /// </param>
         public IniData Parse(string iniString)
         {
-            return Parse(new StringReader(iniString));
+            return this.Parse(new StringReader(iniString));
         }
 
         /// <summary>
@@ -83,11 +83,11 @@ namespace IniParser
         /// </exception>
         public IniData Parse(TextReader textReader)
         {
-            IniData iniData = Configuration.CaseInsensitive ?
-                  new IniDataCaseInsensitive(Scheme)
-                  : new IniData(Scheme);
+            IniData iniData = this.Configuration.CaseInsensitive ?
+                  new IniDataCaseInsensitive(this.Scheme)
+                  : new IniData(this.Scheme);
 
-            Parse(textReader, ref iniData);
+            this.Parse(textReader, ref iniData);
 
             return iniData;
         }
@@ -104,17 +104,17 @@ namespace IniParser
         /// </returns>
         /// <exception cref="ParsingException">
         ///     Thrown if the data could not be parsed
-        /// </exception>       
+        /// </exception>
         public void Parse(TextReader textReader, ref IniData iniData)
         {
             iniData.Clear();
 
-            iniData.Scheme = Scheme.DeepClone();
+            iniData.Scheme = this.Scheme.DeepClone();
 
             _errorExceptions.Clear();
-            if (Configuration.ParseComments)
+            if (this.Configuration.ParseComments)
             {
-                CurrentCommentListTemp.Clear();
+                this.CurrentCommentListTemp.Clear();
             }
             _currentSectionNameTemp = null;
             _mBuffer.Reset(textReader);
@@ -126,52 +126,46 @@ namespace IniParser
 
                 try
                 {
-                    ProcessLine(_mBuffer, iniData);
+                    this.ProcessLine(_mBuffer, iniData);
                 }
                 catch (Exception ex)
                 {
                     _errorExceptions.Add(ex);
-                    if (Configuration.ThrowExceptionsOnError)
+                    if (this.Configuration.ThrowExceptionsOnError)
                     {
                         throw;
                     }
                 }
             }
 
-            // TODO: is this try necessary?
-            try
+            // replace the try/catch with explicit guards
+            if (this.Configuration.ParseComments && this.CurrentCommentListTemp.Count > 0)
             {
-                // Orphan comments, assing to last section/key value
-                if (Configuration.ParseComments && CurrentCommentListTemp.Count > 0)
+                if (iniData.Sections.Count > 0)
                 {
-                    if (iniData.Sections.Count > 0)
+                    var section = iniData.Sections.FindByName(_currentSectionNameTemp);
+                    if (section != null)
                     {
-                        // Check if there are actually sections in the file
-                        var sections = iniData.Sections;
-                        var section = sections.FindByName(_currentSectionNameTemp);
-                        section.Comments.AddRange(CurrentCommentListTemp);
+                        section.Comments.AddRange(this.CurrentCommentListTemp);
                     }
-                    else if (iniData.Global.Count > 0)
+                    else
                     {
-                        // No sections, put the comment in the last key value pair
-                        // but only if the ini file contains at least one key-value pair
-                        iniData.Global.GetLast().Comments.AddRange(CurrentCommentListTemp);
+                        if (this.Configuration.ThrowExceptionsOnError)
+                        {
+                            throw new ParsingException("Section not found for orphan comments", _currentLineNumber);
+                        }
                     }
-
-                    CurrentCommentListTemp.Clear();
+                }
+                else if (iniData.Global.Count > 0)
+                {
+                    var last = iniData.Global.GetLast();
+                    last?.Comments.AddRange(this.CurrentCommentListTemp);
                 }
 
-            }
-            catch (Exception ex)
-            {
-                _errorExceptions.Add(ex);
-                if (Configuration.ThrowExceptionsOnError)
-                {
-                    throw;
-                }
+                this.CurrentCommentListTemp.Clear();
             }
 
-            if (HasError)
+            if (this.HasError)
             {
                 iniData.Clear();
             }
@@ -194,31 +188,25 @@ namespace IniParser
         ///     Processes one line and parses the data found in that line
         ///     (section or key/value pair who may or may not have comments)
         /// </summary>
-        protected virtual void ProcessLine(StringBuffer currentLine,
-                                           IniData iniData)
+        protected virtual void ProcessLine(StringBuffer currentLine, IniData iniData)
         {
             if (currentLine.IsEmpty || currentLine.IsWhitespace) return;
 
             // TODO: change this to a global (IniData level) array of comments
             // Extract comments from current line and store them in a tmp list
 
-            if (ProcessComment(currentLine)) return;
+            if (this.ProcessComment(currentLine)) return;
 
-            if (ProcessSection(currentLine, iniData)) return;
+            if (this.ProcessSection(currentLine, iniData)) return;
 
-            if (ProcessProperty(currentLine, iniData)) return;
+            if (this.ProcessProperty(currentLine, iniData)) return;
 
-            if (Configuration.SkipInvalidLines) return;
+            if (this.Configuration.SkipInvalidLines) return;
 
             var errorFormat = "Couldn't parse text: '{0}'. Please see configuration option {1}.{2} to ignore this error.";
-            var errorMsg = string.Format(errorFormat,
-                                         currentLine,
-                                         nameof(Configuration),
-                                         nameof(Configuration.SkipInvalidLines));
+            var errorMsg = string.Format(errorFormat, currentLine, nameof(this.Configuration), nameof(this.Configuration.SkipInvalidLines));
 
-            throw new ParsingException(errorMsg,
-                                       _currentLineNumber,
-                                       currentLine.DiscardChanges().ToString());
+            throw new ParsingException(errorMsg, _currentLineNumber, currentLine.DiscardChanges().ToString());
         }
 
         protected virtual bool ProcessComment(StringBuffer currentLine)
@@ -228,32 +216,32 @@ namespace IniParser
             var currentLineTrimmed = currentLine.SwallowCopy();
             currentLineTrimmed.TrimStart();
 
-            if (!currentLineTrimmed.StartsWith(Scheme.CommentString))
+            if (!currentLineTrimmed.StartsWith(this.Scheme.CommentString))
             {
                 return false;
             }
 
-            if (!Configuration.ParseComments)
+            if (!this.Configuration.ParseComments)
             {
                 return true;
             }
 
             currentLineTrimmed.TrimEnd();
 
-            var commentRange = currentLineTrimmed.FindSubstring(Scheme.CommentString);
+            var commentRange = currentLineTrimmed.FindSubstring(this.Scheme.CommentString);
             // Exctract the range of the string that contains the comment but not
             // the comment delimiter
-            var startIdx = commentRange.Start + Scheme.CommentString.Length;
-            var size = currentLineTrimmed.Count - Scheme.CommentString.Length;
+            var startIdx = commentRange.Start + this.Scheme.CommentString.Length;
+            var size = currentLineTrimmed.Count - this.Scheme.CommentString.Length;
             var range = StringBuffer.Range.FromIndexWithSize(startIdx, size);
 
             var comment = currentLineTrimmed.Substring(range);
-            if (Configuration.TrimComments)
+            if (this.Configuration.TrimComments)
             {
                 comment.Trim();
             }
 
-            CurrentCommentListTemp.Add(comment.ToString());
+            this.CurrentCommentListTemp.Add(comment.ToString());
 
             return true;
         }
@@ -268,31 +256,31 @@ namespace IniParser
         {
             if (currentLine.Count <= 0) return false;
 
-            var sectionStartRange = currentLine.FindSubstring(Scheme.SectionStartString);
+            var sectionStartRange = currentLine.FindSubstring(this.Scheme.SectionStartString);
 
             if (sectionStartRange.IsEmpty) return false;
 
-            var sectionEndRange = currentLine.FindSubstring(Scheme.SectionEndString, sectionStartRange.Size);
+            var sectionEndRange = currentLine.FindSubstring(this.Scheme.SectionEndString, sectionStartRange.Size);
             if (sectionEndRange.IsEmpty)
             {
-                if (Configuration.SkipInvalidLines) return false;
+                if (this.Configuration.SkipInvalidLines) return false;
 
 
                 var errorFormat = "No closing section value. Please see configuration option {0}.{1} to ignore this error.";
                 var errorMsg = string.Format(errorFormat,
-                                             nameof(Configuration),
-                                             nameof(Configuration.SkipInvalidLines));
+                                             nameof(this.Configuration),
+                                             nameof(this.Configuration.SkipInvalidLines));
 
                 throw new ParsingException(errorMsg,
                                            _currentLineNumber,
                                            currentLine.DiscardChanges().ToString());
             }
 
-            var startIdx = sectionStartRange.Start + Scheme.SectionStartString.Length;
-            var endIdx = sectionEndRange.End - Scheme.SectionEndString.Length;
+            var startIdx = sectionStartRange.Start + this.Scheme.SectionStartString.Length;
+            var endIdx = sectionEndRange.End - this.Scheme.SectionEndString.Length;
             currentLine.ResizeBetweenIndexes(startIdx, endIdx);
 
-            if (Configuration.TrimSections)
+            if (this.Configuration.TrimSections)
             {
                 currentLine.Trim();
             }
@@ -303,15 +291,15 @@ namespace IniParser
             _currentSectionNameTemp = sectionName;
 
             //Checks if the section already exists
-            if (!Configuration.AllowDuplicateSections && iniData.Sections.Contains(sectionName))
+            if (!this.Configuration.AllowDuplicateSections && iniData.Sections.Contains(sectionName))
             {
-                if (Configuration.SkipInvalidLines) return false;
+                if (this.Configuration.SkipInvalidLines) return false;
 
                 var errorFormat = "Duplicate section with name '{0}'. Please see configuration option {1}.{2} to ignore this error.";
                 var errorMsg = string.Format(errorFormat,
                                                 sectionName,
-                                                nameof(Configuration),
-                                                nameof(Configuration.SkipInvalidLines));
+                                                nameof(this.Configuration),
+                                                nameof(this.Configuration.SkipInvalidLines));
 
                 throw new ParsingException(errorMsg,
                                             _currentLineNumber,
@@ -322,12 +310,12 @@ namespace IniParser
             iniData.Sections.Add(sectionName);
 
             // Save comments read until now and assign them to this section
-            if (Configuration.ParseComments)
+            if (this.Configuration.ParseComments)
             {
                 var sections = iniData.Sections;
                 var sectionData = sections.FindByName(sectionName);
-                sectionData.Comments.AddRange(CurrentCommentListTemp);
-                CurrentCommentListTemp.Clear();
+                sectionData.Comments.AddRange(this.CurrentCommentListTemp);
+                this.CurrentCommentListTemp.Clear();
             }
 
             return true;
@@ -337,7 +325,7 @@ namespace IniParser
         {
             if (currentLine.Count <= 0) return false;
 
-            var propertyAssigmentIdx = currentLine.FindSubstring(Scheme.PropertyAssigmentString);
+            var propertyAssigmentIdx = currentLine.FindSubstring(this.Scheme.PropertyAssigmentString);
 
             if (propertyAssigmentIdx.IsEmpty) return false;
 
@@ -349,7 +337,7 @@ namespace IniParser
             var key = currentLine.Substring(keyRange);
             var value = currentLine.Substring(valueRange);
 
-            if (Configuration.TrimProperties)
+            if (this.Configuration.TrimProperties)
             {
                 key.Trim();
                 value.Trim();
@@ -357,12 +345,12 @@ namespace IniParser
 
             if (key.IsEmpty)
             {
-                if (Configuration.SkipInvalidLines) return false;
+                if (this.Configuration.SkipInvalidLines) return false;
 
                 var errorFormat = "Found property without key. Please see configuration option {0}.{1} to ignore this error";
                 var errorMsg = string.Format(errorFormat,
-                                             nameof(Configuration),
-                                             nameof(Configuration.SkipInvalidLines));
+                                             nameof(this.Configuration),
+                                             nameof(this.Configuration.SkipInvalidLines));
 
                 throw new ParsingException(errorMsg,
                                            _currentLineNumber,
@@ -372,19 +360,19 @@ namespace IniParser
             // Check if we haven't read any section yet
             if (string.IsNullOrEmpty(_currentSectionNameTemp))
             {
-                if (!Configuration.AllowKeysWithoutSection)
+                if (!this.Configuration.AllowKeysWithoutSection)
                 {
                     var errorFormat = "Properties must be contained inside a section. Please see configuration option {0}.{1} to ignore this error.";
                     var errorMsg = string.Format(errorFormat,
-                                                nameof(Configuration),
-                                                nameof(Configuration.AllowKeysWithoutSection));
+                                                nameof(this.Configuration),
+                                                nameof(this.Configuration.AllowKeysWithoutSection));
 
                     throw new ParsingException(errorMsg,
                                                _currentLineNumber,
                                                currentLine.DiscardChanges().ToString());
                 }
 
-                AddKeyToKeyValueCollection(key.ToString(),
+                this.AddKeyToKeyValueCollection(key.ToString(),
                                            value.ToString(),
                                            iniData.Global,
                                            "global");
@@ -393,7 +381,7 @@ namespace IniParser
             {
                 var currentSection = iniData.Sections.FindByName(_currentSectionNameTemp);
 
-                AddKeyToKeyValueCollection(key.ToString(),
+                this.AddKeyToKeyValueCollection(key.ToString(),
                                            value.ToString(),
                                            currentSection.Properties,
                                            _currentSectionNameTemp);
@@ -413,7 +401,7 @@ namespace IniParser
                                              PropertyCollection keyDataCollection,
                                              string sectionName)
         {
-            switch (Configuration.DuplicatePropertiesBehaviour)
+            switch (this.Configuration.DuplicatePropertiesBehaviour)
             {
                 case IniParserConfiguration.EDuplicatePropertiesBehaviour.DisallowAndStopWithError:
                     var errorMsg = string.Format("Duplicated key '{0}' found in section '{1}", key, sectionName);
@@ -427,7 +415,7 @@ namespace IniParser
                     keyDataCollection[key] = value;
                     break;
                 case IniParserConfiguration.EDuplicatePropertiesBehaviour.AllowAndConcatenateValues:
-                    keyDataCollection[key] += Configuration.ConcatenateDuplicatePropertiesString + value;
+                    keyDataCollection[key] += this.Configuration.ConcatenateDuplicatePropertiesString + value;
                     break;
             }
         }
@@ -458,7 +446,7 @@ namespace IniParser
             if (keyDataCollection.Contains(key))
             {
                 // We already have a key with the same name defined in the current section
-                HandleDuplicatedKeyInCollection(key, value, keyDataCollection, sectionName);
+                this.HandleDuplicatedKeyInCollection(key, value, keyDataCollection, sectionName);
             }
             else
             {
@@ -466,10 +454,10 @@ namespace IniParser
                 keyDataCollection.Add(key, value);
             }
 
-            if (Configuration.ParseComments)
+            if (this.Configuration.ParseComments)
             {
-                keyDataCollection.FindByKey(key).Comments = CurrentCommentListTemp;
-                CurrentCommentListTemp.Clear();
+                keyDataCollection.FindByKey(key).Comments = this.CurrentCommentListTemp;
+                this.CurrentCommentListTemp.Clear();
             }
         }
 
@@ -486,10 +474,7 @@ namespace IniParser
         {
             get
             {
-                if (_currentCommentListTemp == null)
-                {
-                    _currentCommentListTemp = new List<string>();
-                }
+                _currentCommentListTemp ??= [];
 
                 return _currentCommentListTemp;
             }
@@ -506,7 +491,7 @@ namespace IniParser
 
         // Buffer used to hold the current line being processed.
         // Saves allocating a new string
-        readonly StringBuffer _mBuffer = new StringBuffer(256);
+        readonly StringBuffer _mBuffer = new(256);
         #endregion
     }
 }

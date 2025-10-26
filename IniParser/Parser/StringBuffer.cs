@@ -11,10 +11,7 @@ namespace IniParser.Parser
 
             public int Start
             {
-                get
-                {
-                    return _start;
-                }
+                readonly get => _start;
 
                 set
                 {
@@ -24,10 +21,7 @@ namespace IniParser.Parser
 
             public int Size
             {
-                get
-                {
-                    return _size;
-                }
+                readonly get => _size;
 
                 set
                 {
@@ -35,15 +29,9 @@ namespace IniParser.Parser
                 }
             }
 
-            public int End
-            {
-                get
-                {
-                    return _size <= 0 ? 0 : _start + (_size - 1);
-                }
-            }
+            public readonly int End => _size <= 0 ? 0 : _start + (_size - 1);
 
-            public bool IsEmpty { get { return _size == 0; } }
+            public readonly bool IsEmpty => this._size == 0;
 
             public void Reset()
             {
@@ -69,20 +57,15 @@ namespace IniParser.Parser
                 return new Range { Start = start, Size = end - start + 1 };
             }
 
-            public override string ToString()
+            public override readonly string ToString()
             {
-                return string.Format("[start:{0}, end:{1} size: {2}]",
-                                     this.Start,
-                                     this.End,
-                                     this.Size);
+                return string.Format("[start:{0}, end:{1} size: {2}]", this.Start, this.End, this.Size);
             }
         }
 
         readonly static int DefaultCapacity = 256;
 
-        public StringBuffer()
-            : this(StringBuffer.DefaultCapacity
-                 )
+        public StringBuffer() : this(StringBuffer.DefaultCapacity)
         {
 
         }

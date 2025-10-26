@@ -15,9 +15,9 @@ namespace IniParser
         /// </summary>
         public IniData()
         {
-            Global = new PropertyCollection();
-            Sections = new SectionCollection();
-            _scheme = new IniScheme();
+            this.Global = [];
+            this.Sections = [];
+            this._scheme = new IniScheme();
         }
 
         /// <summary>
@@ -32,9 +32,9 @@ namespace IniParser
 
         public IniData(IniData ori)
         {
-            Sections = ori.Sections.DeepClone();
-            Global = ori.Global.DeepClone();
-            Configuration = ori.Configuration.DeepClone();
+            this.Sections = ori.Sections.DeepClone();
+            this.Global = ori.Global.DeepClone();
+            this.Configuration = ori.Configuration.DeepClone();
         }
         #endregion
 
@@ -65,7 +65,7 @@ namespace IniParser
             get
             {
                 // Lazy initialization
-                this._configuration ??= new IniParserConfiguration();
+                this._configuration ??= new();
 
                 return _configuration;
             }
@@ -81,7 +81,7 @@ namespace IniParser
             get
             {
                 // Lazy initialization
-                this._scheme ??= new IniScheme();
+                this._scheme ??= new();
 
                 return _scheme;
             }
@@ -110,9 +110,13 @@ namespace IniParser
             {
                 if (!this.Sections.Contains(sectionName))
                     if (this.CreateSectionsIfTheyDontExist)
+                    {
                         this.Sections.Add(sectionName);
+                    }
                     else
-                        return null;
+                    {
+                        return [];
+                    }
 
                 return this.Sections[sectionName];
             }

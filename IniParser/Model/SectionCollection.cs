@@ -206,7 +206,7 @@ namespace IniParser.Model
         /// </returns>
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
 
         #endregion

@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
     <RepositoryUrl>https://github.com/spreedated/ini-parser</RepositoryUrl>
-    <Copyright>Ricardo Amores Hernández 2009-2019</Copyright>
+    <Copyright>Ricardo Amores Hernández 2009-2019;2025 (c) Dante Wackermann</Copyright>
     <PackageIcon>nuget-ini-icon.png</PackageIcon>
     <RootNamespace>IniParser</RootNamespace>
     <AssemblyName>IniParser</AssemblyName>
@@ -12,7 +12,7 @@
   Also implements merging operations, both for complete ini files, sections, or even just a subset of the keys contained by the files.
 
   (*) This library is 100% .NET code and does not have any dependencies on Windows API calls in order to be portable.</Description>
-    <Authors>Dante Wackermann,Ricardo Amores Hernández</Authors>
+    <Authors>Dante Wackermann;Ricardo Amores Hernández</Authors>
     <PackageProjectUrl>https://github.com/spreedated/ini-parser</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>3.0</Version>
@@ -26,7 +26,7 @@
     <ReleaseVersion></ReleaseVersion>
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">True</GeneratePackageOnBuild>
     <LangVersion>latest</LangVersion>
-    <NoWarn>1701;1702;IDE0063</NoWarn>
+    <NoWarn>1701;1702;IDE0063;IDE0290</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

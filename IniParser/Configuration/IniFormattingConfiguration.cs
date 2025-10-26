@@ -1,4 +1,5 @@
-﻿using System;
+﻿using IniParser.Model;
+using System;
 namespace IniParser.Configuration
 {
     public class IniFormattingConfiguration : IDeepCloneable<IniFormattingConfiguration>

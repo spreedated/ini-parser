@@ -29,8 +29,8 @@ namespace IniParser.Model
             if (string.IsNullOrEmpty(sectionName))
                 throw new ArgumentException("section name can not be empty", nameof(sectionName));
 
-            Properties = new PropertyCollection(_searchComparer);
-            Name = sectionName;
+            this.Properties = new PropertyCollection(_searchComparer);
+            this.Name = sectionName;
         }
 
         /// <summary>
@@ -49,11 +49,11 @@ namespace IniParser.Model
         /// </param>
         public Section(Section ori, IEqualityComparer<string> searchComparer = null)
         {
-            Name = ori.Name;
+            this.Name = ori.Name;
 
-            _searchComparer = searchComparer;
-            Comments = ori.Comments;
-            Properties = new PropertyCollection(ori.Properties, searchComparer ?? ori._searchComparer);
+            this._searchComparer = searchComparer;
+            this.Comments = ori.Comments;
+            this.Properties = new PropertyCollection(ori.Properties, searchComparer ?? ori._searchComparer);
         }
 
         #endregion
@@ -75,7 +75,9 @@ namespace IniParser.Model
             set
             {
                 if (!string.IsNullOrEmpty(value))
+                {
                     _name = value;
+                }
             }
         }
 
@@ -89,22 +91,16 @@ namespace IniParser.Model
         {
             get
             {
-                if (_comments == null)
-                {
-                    _comments = new List<string>();
-                }
+                this._comments ??= [];
 
-                return _comments;
+                return this._comments;
             }
 
             set
             {
-                if (_comments == null)
-                {
-                    _comments = new List<string>();
-                }
-                _comments.Clear();
-                _comments.AddRange(value);
+                this._comments ??= [];
+                this._comments.Clear();
+                this._comments.AddRange(value);
             }
         }
 

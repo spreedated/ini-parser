@@ -39,5 +39,4 @@ namespace IniParser.Model
             this.Sections = new SectionCollection(ori.Sections, StringComparer.OrdinalIgnoreCase);
         }
     }
-
 }

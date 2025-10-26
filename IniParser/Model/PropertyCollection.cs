@@ -73,20 +73,22 @@ namespace IniParser.Model
         {
             get
             {
-                if (_properties.ContainsKey(keyName))
-                    return _properties[keyName].Value;
+                if (this._properties.TryGetValue(keyName, out Property value))
+                {
+                    return value.Value;
+                }
 
                 return null;
             }
 
             set
             {
-                if (!_properties.ContainsKey(keyName))
+                if (!this._properties.ContainsKey(keyName))
                 {
                     this.Add(keyName);
                 }
 
-                _properties[keyName].Value = value;
+                this._properties[keyName].Value = value;
 
             }
         }
@@ -96,7 +98,7 @@ namespace IniParser.Model
         /// </summary>
         public int Count
         {
-            get { return _properties.Count; }
+            get { return this._properties.Count; }
         }
 
         /// <summary>
@@ -200,8 +202,11 @@ namespace IniParser.Model
         /// </returns>
         public Property FindByKey(string keyName)
         {
-            if (_properties.ContainsKey(keyName))
-                return _properties[keyName];
+            if (this._properties.TryGetValue(keyName, out Property value))
+            {
+                return value;
+            }
+
             return null;
         }
 
@@ -253,8 +258,10 @@ namespace IniParser.Model
         /// <returns>A strong-typed IEnumerator </returns>
         public IEnumerator<Property> GetEnumerator()
         {
-            foreach (string key in _properties.Keys)
-                yield return _properties[key];
+            foreach (string key in this._properties.Keys)
+            {
+                yield return this._properties[key];
+            }
         }
 
         #region IEnumerable Members
@@ -282,7 +289,7 @@ namespace IniParser.Model
         /// </returns>
         public PropertyCollection DeepClone()
         {
-            return new PropertyCollection(this, _searchComparer);
+            return new PropertyCollection(this, this._searchComparer);
         }
 
         #endregion
@@ -291,8 +298,8 @@ namespace IniParser.Model
         // Adds a property w/out checking if it is already contained in the dictionary
         internal void AddPropertyInternal(Property property)
         {
-            _lastAdded = property;
-            _properties.Add(property.Key, property);
+            this._lastAdded = property;
+            this._properties.Add(property.Key, property);
         }
         #endregion
 
@@ -302,7 +309,7 @@ namespace IniParser.Model
         Property _lastAdded;
         internal Property GetLast()
         {
-            return _lastAdded;
+            return this._lastAdded;
         }
 
         /// <summary>

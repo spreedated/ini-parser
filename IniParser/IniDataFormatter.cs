@@ -13,13 +13,13 @@ namespace IniParser
             var sb = new StringBuilder();
 
             // Write global properties
-            WriteProperties(iniData.Global, sb, iniData.Scheme, format);
+            this.WriteProperties(iniData.Global, sb, iniData.Scheme, format);
 
             //Write sections
             foreach (var section in iniData.Sections)
             {
                 //Write current section
-                WriteSection(section, sb, iniData.Scheme, format);
+                this.WriteSection(section, sb, iniData.Scheme, format);
             }
 
             var newLineLength = format.NewLineString.Length;
@@ -32,13 +32,10 @@ namespace IniParser
 
         #region Template Method Design Pattern
 
-        protected virtual void WriteSection(Section section,
-                                            StringBuilder sb,
-                                            IniScheme scheme,
-                                            IniFormattingConfiguration format)
+        protected virtual void WriteSection(Section section, StringBuilder sb, IniScheme scheme, IniFormattingConfiguration format)
         {
             // Comments
-            WriteComments(section.Comments, sb, scheme, format);
+            this.WriteComments(section.Comments, sb, scheme, format);
 
             // Write blank line before section, but not if it is the first line
             if (format.NewLineBeforeSection && sb.Length > 0)
@@ -54,18 +51,15 @@ namespace IniParser
                 sb.Append(format.NewLineString);
             }
 
-            WriteProperties(section.Properties, sb, scheme, format);
+            this.WriteProperties(section.Properties, sb, scheme, format);
         }
 
-        protected virtual void WriteProperties(PropertyCollection properties,
-                                               StringBuilder sb,
-                                               IniScheme scheme,
-                                               IniFormattingConfiguration format)
+        protected virtual void WriteProperties(PropertyCollection properties, StringBuilder sb, IniScheme scheme, IniFormattingConfiguration format)
         {
             foreach (Property property in properties)
             {
                 // Write comments
-                WriteComments(property.Comments, sb, scheme, format);
+                this.WriteComments(property.Comments, sb, scheme, format);
 
                 if (format.NewLineBeforeProperty)
                 {
@@ -82,18 +76,13 @@ namespace IniParser
             }
         }
 
-        protected virtual void WriteComments(List<string> comments,
-                                             StringBuilder sb,
-                                             IniScheme scheme,
-                                             IniFormattingConfiguration format)
+        protected virtual void WriteComments(List<string> comments, StringBuilder sb, IniScheme scheme, IniFormattingConfiguration format)
         {
             foreach (string comment in comments)
             {
                 sb.Append($"{scheme.CommentString}{comment}{format.NewLineString}");
             }
         }
-
         #endregion
     }
-
 }
