@@ -4,6 +4,7 @@
     <OutputType>Library</OutputType>
     <IsPackable>False</IsPackable>
     <ReleaseVersion></ReleaseVersion>
+    <NoWarn>1701;1702;IDE0063</NoWarn>
   </PropertyGroup>
 
   <!-- Auto-select supported target frameworks based on MSBuild version -->

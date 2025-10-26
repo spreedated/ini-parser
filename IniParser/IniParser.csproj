@@ -1,14 +1,18 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RepositoryUrl>https://github.com/spreedated/ini-parser</RepositoryUrl>
+    <Copyright>Ricardo Amores Hernández 2009-2019</Copyright>
+    <PackageIcon>nuget-ini-icon.png</PackageIcon>
     <RootNamespace>IniParser</RootNamespace>
     <AssemblyName>IniParser</AssemblyName>
     <Description>A .NET, Mono and Unity3d compatible(*) library for reading/writing INI data from IO streams, file streams, and strings written in C#.
 
-Also implements merging operations, both for complete ini files, sections, or even just a subset of the keys contained by the files.
+  Also implements merging operations, both for complete ini files, sections, or even just a subset of the keys contained by the files.
 
-(*) This library is 100% .NET code and does not have any dependencies on Windows API calls in order to be portable.</Description>
-    <Authors>Ricardo Amores Hernández</Authors>
+  (*) This library is 100% .NET code and does not have any dependencies on Windows API calls in order to be portable.</Description>
+    <Authors>Dante Wackermann,Ricardo Amores Hernández</Authors>
     <PackageProjectUrl>https://github.com/spreedated/ini-parser</PackageProjectUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Version>3.0</Version>
@@ -20,20 +24,15 @@ Also implements merging operations, both for complete ini files, sections, or ev
     <PackageId>ini-parser</PackageId>
     <Product>INI Parser</Product>
     <ReleaseVersion></ReleaseVersion>
-    <LangVersion>latest</LangVersion>
     <GeneratePackageOnBuild Condition="$(Configuration) == 'Release'">True</GeneratePackageOnBuild>
+    <LangVersion>latest</LangVersion>
+    <NoWarn>1701;1702;IDE0063</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <RepositoryUrl>https://github.com/spreedated/ini-parser</RepositoryUrl>
-    <Copyright>Ricardo Amores Hernández 2009-2019</Copyright>
-    <PackageIcon>nuget-ini-icon.png</PackageIcon>
-  </PropertyGroup>
-    <ItemGroup>
-      <None Include="..\assets\nuget-ini-icon.png">
-        <Pack>True</Pack>
-        <PackagePath>\</PackagePath>
-      </None>
-    </ItemGroup>
+  <ItemGroup>
+    <None Include="..\assets\nuget-ini-icon.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
 </Project>
