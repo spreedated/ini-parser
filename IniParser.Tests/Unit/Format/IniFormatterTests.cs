@@ -1,5 +1,5 @@
-﻿using NUnit.Framework;
-using IniParser.Configuration;
+﻿using IniParser.Configuration;
+using NUnit.Framework;
 
 namespace IniParser.Tests.Unit.Format
 {
@@ -50,7 +50,7 @@ key2=value
             var iniData = parser.Parse(str);
 
             formatConfig.NumSpacesBetweenKeyAndAssigment = 0;
-            formatConfig.NumSpacesBetweenAssigmentAndValue= 0;
+            formatConfig.NumSpacesBetweenAssigmentAndValue = 0;
             formatConfig.NewLineBeforeSection = true;
             formatConfig.NewLineAfterSection = true;
             formatConfig.NewLineBeforeProperty = true;

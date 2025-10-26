@@ -81,7 +81,7 @@ namespace IniParser.Parser
         readonly static int DefaultCapacity = 256;
 
         public StringBuffer()
-            :this(StringBuffer.DefaultCapacity 
+            : this(StringBuffer.DefaultCapacity
                  )
         {
 
@@ -176,7 +176,7 @@ namespace IniParser.Parser
                     continue;
                 }
 
-                 return Range.FromIndexWithSize(firstCharIdx - _bufferIndexes.Start, subStringLength);
+                return Range.FromIndexWithSize(firstCharIdx - _bufferIndexes.Start, subStringLength);
             }
 
             return new Range();
@@ -223,7 +223,7 @@ namespace IniParser.Parser
         }
 
         public void Resize(int startIdx, int size)
-        { 
+        {
             if (startIdx < 0 || size < 0)
             {
                 return;

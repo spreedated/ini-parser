@@ -204,7 +204,7 @@ namespace IniParser.Model
                 return _properties[keyName];
             return null;
         }
-       
+
         /// <summary>
         ///     Merges other Property into this, adding new properties if they 
         ///     did not existed or overwriting values if the properties already 

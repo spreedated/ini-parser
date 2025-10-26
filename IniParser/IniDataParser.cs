@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using IniParser.Configuration;
 using IniParser.Exceptions;
-using IniParser.Configuration;
+using IniParser.Model;
+using IniParser.Parser;
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
-using IniParser.Parser;
-using IniParser.Model;
 
 namespace IniParser
 {
@@ -188,7 +188,7 @@ namespace IniParser
         // See IniParserConfiguration interface, and IniDataParser constructor
         // to change the default configuration.
 
-  
+
 
         /// <summary>
         ///     Processes one line and parses the data found in that line
@@ -252,7 +252,7 @@ namespace IniParser
             {
                 comment.Trim();
             }
-            
+
             CurrentCommentListTemp.Add(comment.ToString());
 
             return true;
@@ -271,7 +271,7 @@ namespace IniParser
             var sectionStartRange = currentLine.FindSubstring(Scheme.SectionStartString);
 
             if (sectionStartRange.IsEmpty) return false;
-            
+
             var sectionEndRange = currentLine.FindSubstring(Scheme.SectionEndString, sectionStartRange.Size);
             if (sectionEndRange.IsEmpty)
             {
@@ -305,7 +305,7 @@ namespace IniParser
             //Checks if the section already exists
             if (!Configuration.AllowDuplicateSections && iniData.Sections.Contains(sectionName))
             {
-                    if (Configuration.SkipInvalidLines) return false;
+                if (Configuration.SkipInvalidLines) return false;
 
                 var errorFormat = "Duplicate section with name '{0}'. Please see configuration option {1}.{2} to ignore this error.";
                 var errorMsg = string.Format(errorFormat,
@@ -384,9 +384,9 @@ namespace IniParser
                                                currentLine.DiscardChanges().ToString());
                 }
 
-                AddKeyToKeyValueCollection(key.ToString(), 
+                AddKeyToKeyValueCollection(key.ToString(),
                                            value.ToString(),
-                                           iniData.Global, 
+                                           iniData.Global,
                                            "global");
             }
             else
@@ -394,7 +394,7 @@ namespace IniParser
                 var currentSection = iniData.Sections.FindByName(_currentSectionNameTemp);
 
                 AddKeyToKeyValueCollection(key.ToString(),
-                                           value.ToString(), 
+                                           value.ToString(),
                                            currentSection.Properties,
                                            _currentSectionNameTemp);
             }
@@ -413,7 +413,7 @@ namespace IniParser
                                              PropertyCollection keyDataCollection,
                                              string sectionName)
         {
-            switch(Configuration.DuplicatePropertiesBehaviour)
+            switch (Configuration.DuplicatePropertiesBehaviour)
             {
                 case IniParserConfiguration.EDuplicatePropertiesBehaviour.DisallowAndStopWithError:
                     var errorMsg = string.Format("Duplicated key '{0}' found in section '{1}", key, sectionName);
@@ -427,7 +427,7 @@ namespace IniParser
                     keyDataCollection[key] = value;
                     break;
                 case IniParserConfiguration.EDuplicatePropertiesBehaviour.AllowAndConcatenateValues:
-                    keyDataCollection[key] += Configuration.ConcatenateDuplicatePropertiesString + value; 
+                    keyDataCollection[key] += Configuration.ConcatenateDuplicatePropertiesString + value;
                     break;
             }
         }

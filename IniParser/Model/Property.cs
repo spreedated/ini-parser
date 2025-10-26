@@ -40,7 +40,7 @@ namespace IniParser.Model
             Value = ori.Value;
             Key = ori.Key;
             Comments = ori.Comments;
-        }   
+        }
 
         #endregion Constructors 
 

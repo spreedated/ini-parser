@@ -1,8 +1,8 @@
+using IniParser.Configuration;
+using IniParser.Format;
+using IniParser.Model;
 using System.Collections.Generic;
 using System.Text;
-using IniParser.Configuration;
-using IniParser.Model;
-using IniParser.Format;
 
 namespace IniParser
 {
@@ -23,7 +23,7 @@ namespace IniParser
             }
 
             var newLineLength = format.NewLineString.Length;
-            
+
             // Remove the last new line
             sb.Remove(sb.Length - newLineLength, newLineLength);
 

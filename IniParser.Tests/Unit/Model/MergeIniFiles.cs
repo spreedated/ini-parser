@@ -1,6 +1,5 @@
-using System;
-using IniParser;
 using NUnit.Framework;
+using System;
 
 namespace IniParser.Tests.Unit.Model
 {
@@ -10,24 +9,24 @@ namespace IniParser.Tests.Unit.Model
         [Test]
         public void merge_programatically_created_ini_files()
         {
-			var iniData = new IniData();
-			iniData.Global.Add("UseSeparateRepositoryForAssets", true.ToString());
+            var iniData = new IniData();
+            iniData.Global.Add("UseSeparateRepositoryForAssets", true.ToString());
 
-			iniData.Sections.Add("MainRepository");
-			iniData["MainRepository"]["Type"] = "git";
-			iniData["MainRepository"]["RelativePath"] = ".";
+            iniData.Sections.Add("MainRepository");
+            iniData["MainRepository"]["Type"] = "git";
+            iniData["MainRepository"]["RelativePath"] = ".";
 
-			Assert.That(iniData["MainRepository"].Contains("Type"));
-			Assert.That(iniData["MainRepository"].Contains("RelativePath"));
+            Assert.That(iniData["MainRepository"].Contains("Type"));
+            Assert.That(iniData["MainRepository"].Contains("RelativePath"));
 
-			iniData.Sections.Add("AssetsRepository");
-			iniData["AssetsRepository"]["Type"] = "svn";
-			iniData["AssetsRepository"]["RelativePath"] = "./Assets";
+            iniData.Sections.Add("AssetsRepository");
+            iniData["AssetsRepository"]["Type"] = "svn";
+            iniData["AssetsRepository"]["RelativePath"] = "./Assets";
 
-			Assert.That(iniData["AssetsRepository"].Contains("Type"));
-			Assert.That(iniData["AssetsRepository"].Contains("RelativePath"));
+            Assert.That(iniData["AssetsRepository"].Contains("Type"));
+            Assert.That(iniData["AssetsRepository"].Contains("RelativePath"));
 
-			Console.WriteLine(iniData.ToString());
+            Console.WriteLine(iniData.ToString());
         }
 
         string iniFileStrA =

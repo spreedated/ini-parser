@@ -1,5 +1,4 @@
-﻿using IniParser;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
 namespace IniParser.Tests.Model
 {

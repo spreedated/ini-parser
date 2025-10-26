@@ -1,5 +1,4 @@
-﻿using IniParser;
-using IniParser.Configuration;
+﻿using IniParser.Configuration;
 using NUnit.Framework;
 
 namespace IniParser.Tests.Unit.Configuration
@@ -9,7 +8,7 @@ namespace IniParser.Tests.Unit.Configuration
     {
         private IniDataParser _parser;
 
-        string iniFileStr =
+        private const string INI_FILE_STRING =
 @"
 cyberdreams = i have no section, and i must scream
 
@@ -23,7 +22,7 @@ this_is_not_a_comment = ;no comment
 name = Marble Zone
 ";
 
-        string iniFileStrNotSoGood =
+        private const string INI_FILE_STRING_NOT_SO_GOOD =
 @"
 cyberdreams = i have no section, and i must scream
 
@@ -38,7 +37,7 @@ name = Marble Zone
 ";
 
         [SetUp]
-        public void setup()
+        public void Setup()
         {
             _parser = new IniDataParser();
             _parser.Scheme.SectionStartString = "<";
@@ -54,7 +53,7 @@ name = Marble Zone
         }
 
         [Test]
-        public void simple_configuration()
+        public void SimpleConfiguration()
         {
             var iniStr = @"[section1]
 #data = 1
@@ -71,9 +70,9 @@ name = Marble Zone
         }
 
         [Test]
-        public void parse_not_so_good_ini_format()
+        public void ParseNotSoGoodIniFormat()
         {
-            var data = _parser.Parse(iniFileStrNotSoGood);
+            var data = _parser.Parse(INI_FILE_STRING_NOT_SO_GOOD);
             Assert.That(data, Is.Not.Null);
 
             Assert.That(data.Sections.Count, Is.EqualTo(0));
@@ -84,16 +83,16 @@ name = Marble Zone
         }
 
         [Test]
-        public void parse_ini_with_new_configuration()
+        public void ParseIniWithNewConfiguration()
         {
-            IniData data = _parser.Parse(iniFileStr);
+            IniData data = _parser.Parse(INI_FILE_STRING);
             Assert.That(data, Is.Not.Null);
 
             Assert.That(data.Sections.Count, Is.EqualTo(2));
 
             Assert.That(data.Global.Count, Is.EqualTo(1));
             Assert.That(data.Global["cyberdreams"], Is.EqualTo("i have no section, and i must scream"));
-            
+
             var section1 = data.Sections.FindByName("stage1");
 
             Assert.That(section1, Is.Not.Null);
@@ -111,7 +110,7 @@ name = Marble Zone
         }
 
         [Test, Ignore("no writing")]
-        public void check_ini_writing()
+        public void CheckIniWriting()
         {
             //IniData data = new IniDataParser(new LiberalTestConfiguration()).Parse(iniFileStr);
 
@@ -121,7 +120,7 @@ name = Marble Zone
         }
 
         [Test, Ignore("no writing")]
-        public void check_new_line_config_on_ini_writing()
+        public void CheckNewLineConfigOnIniWriting()
         {
             //IniData data = new IniDataParser(new LiberalTestConfiguration()).Parse(iniFileStr);
 
@@ -133,12 +132,12 @@ name = Marble Zone
         }
 
         [Test]
-        public void comment_string_with_special_characters()
+        public void CommentStringWithSpecialCharacters()
         {
             var iniStr = @"[Section]
                 \Backslash Bcomment
                 Key=Value";
-         
+
             var parser = new IniDataParser();
             parser.Scheme.CommentString = @"\";
 
@@ -146,7 +145,7 @@ name = Marble Zone
         }
 
         [Test]
-        public void section_string_with_special_characters()
+        public void SectionStringWithSpecialCharacters()
         {
             var iniStr = @"\section\
                 ;comment
@@ -162,7 +161,7 @@ name = Marble Zone
         }
 
         [Test]
-        public void alway_returns_a_valid_section()
+        public void AlwayReturnsAValidSection()
         {
             var parser = new IniDataParser();
 

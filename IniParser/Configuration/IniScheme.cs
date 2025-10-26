@@ -1,6 +1,4 @@
-﻿using IniParser.Model;
-
-namespace IniParser.Configuration
+﻿namespace IniParser.Configuration
 {
     /// <summary>
     /// This structure defines the format of the INI file by customization the characters used to define sections
@@ -105,7 +103,7 @@ namespace IniParser.Configuration
             get => string.IsNullOrWhiteSpace(this._propertyAssigmentString) ? "=" : this._propertyAssigmentString;
             set => this._propertyAssigmentString = value?.Trim();
         }
-        
+
         #region IDeepCloneable<T> Members
         /// <summary>
         ///     Creates a new object that is a copy of the current instance.

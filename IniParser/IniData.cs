@@ -13,13 +13,13 @@ namespace IniParser
         /// <summary>
         ///     Initializes an empty IniData instance.
         /// </summary>
-        public IniData() 
+        public IniData()
         {
             Global = new PropertyCollection();
             Sections = new SectionCollection();
             _scheme = new IniScheme();
         }
-        
+
         /// <summary>
         ///     Initialzes an IniData instance with a given scheme
         /// </summary>

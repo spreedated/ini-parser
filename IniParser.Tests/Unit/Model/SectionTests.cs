@@ -1,6 +1,6 @@
-﻿using System;
-using IniParser.Model;
+﻿using IniParser.Model;
 using NUnit.Framework;
+using System;
 
 namespace IniParser.Tests.Unit.Model
 {

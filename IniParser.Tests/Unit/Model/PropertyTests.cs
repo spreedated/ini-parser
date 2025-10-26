@@ -1,7 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using IniParser.Model;
+﻿using IniParser.Model;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
 
 namespace IniParser.Tests.Unit.Model
 {
@@ -36,7 +36,7 @@ namespace IniParser.Tests.Unit.Model
             Property property = new Property(strKeyTest);
             property.Value = strValueTest;
             property.Comments = commentListTest;
-            
+
             //Assert not null and empty
             Assert.That(property, Is.Not.Null);
             Assert.That(property.Key, Is.EqualTo(strKeyTest));
@@ -74,9 +74,9 @@ namespace IniParser.Tests.Unit.Model
         public void check_merge_properties()
         {
             var properties1 = new PropertyCollection();
-            properties1.Add( "key1", "value1");
-            properties1.Add( "key2", "value2");
-            properties1.Add( "key3", "value3");
+            properties1.Add("key1", "value1");
+            properties1.Add("key2", "value2");
+            properties1.Add("key3", "value3");
 
             var properties2 = new PropertyCollection();
             properties2.Add("key1", "value11");

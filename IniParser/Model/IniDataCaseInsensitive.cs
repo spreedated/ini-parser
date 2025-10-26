@@ -1,5 +1,5 @@
-using System;
 using IniParser.Configuration;
+using System;
 
 namespace IniParser.Model
 {
@@ -39,5 +39,5 @@ namespace IniParser.Model
             this.Sections = new SectionCollection(ori.Sections, StringComparer.OrdinalIgnoreCase);
         }
     }
-    
-} 
+
+}

@@ -1,8 +1,8 @@
-﻿using System;
+﻿using IniParser.Exceptions;
+using NUnit.Framework;
+using System;
 using System.IO;
 using System.Text;
-using IniParser.Exceptions;
-using NUnit.Framework;
 
 namespace IniParser.Tests.Unit.Parser
 {
@@ -59,7 +59,7 @@ namespace IniParser.Tests.Unit.Parser
 
             IniData parsedData = ReadAndParseIniFile(parser, "long_file.ini", Encoding.ASCII);
 
-            Assert.That(parsedData["contact_points"]["point.0"], 
+            Assert.That(parsedData["contact_points"]["point.0"],
                 Is.EqualTo("1,  84.64,   0.00,  -19.05, 1600, 0, 1.8, 70,  1.8, 1.0, 0.9,  9,  8, 0, 270, 290"));
         }
 

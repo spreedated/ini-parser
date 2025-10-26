@@ -1,7 +1,6 @@
-using System.Collections.Generic;
-using IniParser;
 using IniParser.Model;
 using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace IniParser.Tests.Unit.Model
 {
@@ -13,7 +12,7 @@ namespace IniParser.Tests.Unit.Model
         {
             string strSectionTest = "MySection";
             string strComment = "comment";
-            List<string> commentListTest = new List<string>(new string[] { "testComment 1", "testComment 2" });
+            List<string> commentListTest = ["testComment 1", "testComment 2"];
 
 
             //Creation
@@ -48,7 +47,7 @@ namespace IniParser.Tests.Unit.Model
             Assert.That(sdc.Count, Is.EqualTo(0));
 
             //Check access
-            Assert.That(sdc[strSectionTest], Is.Null);
+            Assert.That(sdc[strSectionTest], Is.Empty);
         }
 
         [Test]

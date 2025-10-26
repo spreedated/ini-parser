@@ -1,7 +1,7 @@
-﻿using NUnit.Framework;
-using IniParser.Parser;
-using System.IO;
+﻿using IniParser.Parser;
+using NUnit.Framework;
 using System;
+using System.IO;
 
 namespace IniParser.Tests.Model
 {
@@ -43,7 +43,7 @@ namespace IniParser.Tests.Model
             Assert.That(r2.End, Is.EqualTo(0));
             Assert.That(r2.Size, Is.EqualTo(0));
         }
-            
+
         [Test]
         public void check_default_initialization()
         {

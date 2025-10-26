@@ -78,7 +78,7 @@ namespace IniParser.Configuration
         public bool NewLineAfterProperty { get; set; } = false;
         public bool NewLineBeforeProperty { get; set; } = false;
 
-        
+
         #region IDeepCloneable<T> Members
         public IniFormattingConfiguration DeepClone()
         {

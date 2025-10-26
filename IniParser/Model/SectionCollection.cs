@@ -15,8 +15,8 @@ namespace IniParser.Model
         /// Initializes a new instance of the <see cref="SectionCollection"/> class.
         /// </summary>
         public SectionCollection()
-            :this(EqualityComparer<string>.Default)
-        {}
+            : this(EqualityComparer<string>.Default)
+        { }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="IniParser.Model.SectionCollection"/> class.
@@ -44,9 +44,9 @@ namespace IniParser.Model
         public SectionCollection(SectionCollection ori, IEqualityComparer<string> searchComparer)
         {
             _searchComparer = searchComparer ?? EqualityComparer<string>.Default;
-                
+
             _sections = new Dictionary<string, Section>(_searchComparer);
-            foreach(var sectionData in ori)
+            foreach (var sectionData in ori)
             {
                 _sections.Add(sectionData.Name, sectionData.DeepClone());
             }
@@ -69,7 +69,7 @@ namespace IniParser.Model
         {
             get
             {
-                if (this._sections.TryGetValue(sectionName, out Section value) )
+                if (this._sections.TryGetValue(sectionName, out Section value))
                 {
                     return value.Properties;
                 }
@@ -90,9 +90,9 @@ namespace IniParser.Model
         /// <exception cref="ArgumentException">If the section name is not valid.</exception>
         public bool Add(string sectionName)
         {
-            if ( !this.Contains(sectionName) )
+            if (!this.Contains(sectionName))
             {
-                this._sections.Add( sectionName, new Section(sectionName, _searchComparer) );
+                this._sections.Add(sectionName, new Section(sectionName, _searchComparer));
                 return true;
             }
 
@@ -156,7 +156,7 @@ namespace IniParser.Model
 
         public void Merge(SectionCollection sectionsToMerge)
         {
-            foreach(var sectionDataToMerge in sectionsToMerge)
+            foreach (var sectionDataToMerge in sectionsToMerge)
             {
                 var sectionDataInThis = this.FindByName(sectionDataToMerge.Name);
 

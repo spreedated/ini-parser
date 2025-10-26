@@ -1,12 +1,11 @@
 using System;
-using IniParser;
 
 namespace IniParser.Example
 {
     public class MainProgram
     {
         public static void Main()
-        {   
+        {
             var testIniFile = @"#This section provides the general configuration of the application
 [GeneralConfiguration] 
 
@@ -57,7 +56,7 @@ patty = pattypass ";
             // Write down the contents of the modified ini file to the console
             Console.WriteLine("---- Printing contents of the new INI file ----");
             Console.WriteLine(parsedData);
-			Console.WriteLine();
+            Console.WriteLine();
         }
     }
 }

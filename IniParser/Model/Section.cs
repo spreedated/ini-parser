@@ -14,9 +14,9 @@ namespace IniParser.Model
         #region Initialization
 
         public Section(string sectionName)
-            :this(sectionName, EqualityComparer<string>.Default)
+            : this(sectionName, EqualityComparer<string>.Default)
         {
-            
+
         }
 
         /// <summary>

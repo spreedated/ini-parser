@@ -1,5 +1,4 @@
-﻿using IniParser;
-using IniParser.Configuration;
+﻿using IniParser.Configuration;
 using IniParser.Exceptions;
 using NUnit.Framework;
 
@@ -20,20 +19,20 @@ Data2 = 2";
 
             var iniData = parser.Parse(ini);
 
-            Assert.That(iniData.Sections.FindByName("Section1"), 
+            Assert.That(iniData.Sections.FindByName("Section1"),
                 Is.Not.Null);
-            Assert.That(iniData.Sections.FindByName("section1"), 
+            Assert.That(iniData.Sections.FindByName("section1"),
                 Is.Null);
 
             parser.Configuration.CaseInsensitive = true;
 
             iniData = parser.Parse(ini);
 
-            Assert.That(iniData.Sections.FindByName("Section1"), 
+            Assert.That(iniData.Sections.FindByName("Section1"),
                 Is.Not.Null);
-            Assert.That(iniData.Sections.FindByName("section1"), 
+            Assert.That(iniData.Sections.FindByName("section1"),
                 Is.Not.Null);
-            Assert.That(iniData.Sections.FindByName("Section1"), 
+            Assert.That(iniData.Sections.FindByName("Section1"),
                 Is.EqualTo(iniData.Sections.FindByName("section1")));
         }
 
@@ -56,7 +55,8 @@ data2 = 2";
 
             parser.Configuration.AllowKeysWithoutSection = false;
 
-            Assert.Throws(typeof(ParsingException), () => {
+            Assert.Throws(typeof(ParsingException), () =>
+            {
                 parser.Parse(ini);
             });
 
@@ -73,7 +73,8 @@ data1 = 5";
 
             parser.Configuration.DuplicatePropertiesBehaviour = IniParserConfiguration.EDuplicatePropertiesBehaviour.DisallowAndStopWithError;
 
-            Assert.Throws(typeof(ParsingException), () => {
+            Assert.Throws(typeof(ParsingException), () =>
+            {
                 parser.Parse(ini);
             });
 
@@ -104,7 +105,8 @@ data1 = 1";
 
             var parser = new IniDataParser();
 
-            Assert.Throws(typeof(ParsingException), () => {
+            Assert.Throws(typeof(ParsingException), () =>
+            {
                 parser.Parse(ini);
             });
 
@@ -116,12 +118,13 @@ data1 = 1";
             Assert.That(parser.HasError, Is.True);
             Assert.That(parser.Errors, Has.Count.EqualTo(1));
             Assert.That(parser.Errors[0].GetType(), Is.EqualTo(typeof(ParsingException)));
-            if (parser.Errors[0] is ParsingException parsingException) {
+            if (parser.Errors[0] is ParsingException parsingException)
+            {
                 Assert.That(parsingException.LineContents, Is.EqualTo("dfsdfdf ;bad line"));
                 Assert.That(parsingException.LineNumber, Is.EqualTo(1));
             }
         }
-    
+
         [Test]
         public void check_duplicate_sections()
         {
