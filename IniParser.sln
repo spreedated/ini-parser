@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.0.11121.172 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INIFileParser", "IniFileParser\INIFileParser.csproj", "{5E46DCF4-C473-4171-9F9B-F3910B5EC407}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IniParser", "IniParser\IniParser.csproj", "{5E46DCF4-C473-4171-9F9B-F3910B5EC407}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INIFileParser.Tests", "IniFileParser.Tests\INIFileParser.Tests.csproj", "{553AD4A0-946C-436D-8135-5ADBA97D246E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IniParser.Tests", "IniParser.Tests\IniParser.Tests.csproj", "{553AD4A0-946C-436D-8135-5ADBA97D246E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INIFileParser.Example", "INIFileParser.Example\INIFileParser.Example.csproj", "{D4CF6996-5C75-46D1-A75B-22731ED16058}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IniParser.Example", "IniParser.Example\IniParser.Example.csproj", "{D4CF6996-5C75-46D1-A75B-22731ED16058}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{185989E4-CDD9-4446-B4AE-165A6C5C3BEC}"
 	ProjectSection(SolutionItems) = preProject

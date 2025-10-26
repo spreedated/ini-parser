@@ -8,7 +8,7 @@
 
   <!-- Auto-select supported target frameworks based on MSBuild version -->
   <PropertyGroup>
-    <TargetFrameworks>net6.0;net472</TargetFrameworks>
+    <TargetFramework>net9.0</TargetFramework>
   </PropertyGroup>
     <ItemGroup>
       <ProjectReference Include="..\IniParser\IniParser.csproj" />

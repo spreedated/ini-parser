@@ -25,7 +25,7 @@ Also implements merging operations, both for complete ini files, sections, or ev
 	</PropertyGroup>
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0;net472</TargetFrameworks>
+		<TargetFramework>net9.0</TargetFramework>
 		<RepositoryUrl>https://github.com/spreedated/ini-parser</RepositoryUrl>
 		<Copyright>Ricardo Amores Hernández 2009-2019</Copyright>
 		<PackageIcon>nuget-ini-icon.png</PackageIcon>
