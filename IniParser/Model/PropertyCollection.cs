@@ -83,7 +83,7 @@ namespace IniParser.Model
             {
                 if (!_properties.ContainsKey(keyName))
                 {
-                    Add(keyName);
+                    this.Add(keyName);
                 }
 
                 _properties[keyName].Value = value;
@@ -113,7 +113,7 @@ namespace IniParser.Model
         {
             if (!_properties.ContainsKey(key))
             {
-                AddPropertyInternal(new Property(key, string.Empty));
+                this.AddPropertyInternal(new Property(key, string.Empty));
                 return true;
             }
 
@@ -134,7 +134,7 @@ namespace IniParser.Model
         {
             if (!_properties.ContainsKey(property.Key))
             {
-                AddPropertyInternal(property);
+                this.AddPropertyInternal(property);
                 return true;
             }
             return false;
@@ -157,7 +157,7 @@ namespace IniParser.Model
         {
             if (!_properties.ContainsKey(key))
             {
-                AddPropertyInternal(new Property(key, value));
+                this.AddPropertyInternal(new Property(key, value));
                 return true;
             }
             return false;
@@ -218,9 +218,9 @@ namespace IniParser.Model
         {
             foreach (var keyData in propertyToMerge)
             {
-                Add(keyData.Key);
+                this.Add(keyData.Key);
                 this[keyData.Key] = keyData.Value;
-                FindByKey(keyData.Key).Comments.AddRange(keyData.Comments);
+                this.FindByKey(keyData.Key).Comments.AddRange(keyData.Comments);
             }
         }
 

@@ -69,10 +69,12 @@ namespace IniParser.Model
         {
             get
             {
-                if ( _sections.ContainsKey(sectionName) )
-                    return _sections[sectionName].Properties;
+                if (this._sections.TryGetValue(sectionName, out Section value) )
+                {
+                    return value.Properties;
+                }
 
-                return null;
+                return [];
             }
         }
 
@@ -88,9 +90,9 @@ namespace IniParser.Model
         /// <exception cref="ArgumentException">If the section name is not valid.</exception>
         public bool Add(string sectionName)
         {
-            if ( !Contains(sectionName) )
+            if ( !this.Contains(sectionName) )
             {
-                _sections.Add( sectionName, new Section(sectionName, _searchComparer) );
+                this._sections.Add( sectionName, new Section(sectionName, _searchComparer) );
                 return true;
             }
 
@@ -103,13 +105,13 @@ namespace IniParser.Model
         /// <param name="data">Data.</param>
         public void Add(Section data)
         {
-            if (Contains(data.Name))
+            if (this.Contains(data.Name))
             {
-                _sections[data.Name] = new Section(data, _searchComparer);
+                this._sections[data.Name] = new Section(data, _searchComparer);
             }
             else
             {
-                _sections.Add(data.Name, new Section(data, _searchComparer));
+                this._sections.Add(data.Name, new Section(data, _searchComparer));
             }
         }
 
@@ -118,7 +120,7 @@ namespace IniParser.Model
         /// </summary>
         public void Clear()
         {
-            _sections.Clear();
+            this._sections.Clear();
         }
 
         /// <summary>
@@ -131,7 +133,7 @@ namespace IniParser.Model
         /// </returns>
         public bool Contains(string sectionName)
         {
-            return _sections.ContainsKey(sectionName);
+            return this._sections.ContainsKey(sectionName);
         }
 
         /// <summary>
@@ -144,8 +146,10 @@ namespace IniParser.Model
         /// </returns>
         public Section FindByName(string sectionName)
         {
-            if (_sections.ContainsKey(sectionName))
-                return _sections[sectionName];
+            if (this._sections.TryGetValue(sectionName, out Section value))
+            {
+                return value;
+            }
 
             return null;
         }
@@ -154,11 +158,11 @@ namespace IniParser.Model
         {
             foreach(var sectionDataToMerge in sectionsToMerge)
             {
-                var sectionDataInThis = FindByName(sectionDataToMerge.Name);
+                var sectionDataInThis = this.FindByName(sectionDataToMerge.Name);
 
                 if (sectionDataInThis == null)
                 {
-                    Add(sectionDataToMerge.Name);
+                    this.Add(sectionDataToMerge.Name);
                 }
 
                 this[sectionDataToMerge.Name].Merge(sectionDataToMerge.Properties);

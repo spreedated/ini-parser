@@ -243,7 +243,7 @@ namespace IniParser
             var commentRange = currentLineTrimmed.FindSubstring(Scheme.CommentString);
             // Exctract the range of the string that contains the comment but not
             // the comment delimiter
-            var startIdx = commentRange.start + Scheme.CommentString.Length;
+            var startIdx = commentRange.Start + Scheme.CommentString.Length;
             var size = currentLineTrimmed.Count - Scheme.CommentString.Length;
             var range = StringBuffer.Range.FromIndexWithSize(startIdx, size);
 
@@ -272,7 +272,7 @@ namespace IniParser
 
             if (sectionStartRange.IsEmpty) return false;
             
-            var sectionEndRange = currentLine.FindSubstring(Scheme.SectionEndString, sectionStartRange.size);
+            var sectionEndRange = currentLine.FindSubstring(Scheme.SectionEndString, sectionStartRange.Size);
             if (sectionEndRange.IsEmpty)
             {
                 if (Configuration.SkipInvalidLines) return false;
@@ -288,8 +288,8 @@ namespace IniParser
                                            currentLine.DiscardChanges().ToString());
             }
 
-            var startIdx = sectionStartRange.start + Scheme.SectionStartString.Length;
-            var endIdx = sectionEndRange.end - Scheme.SectionEndString.Length;
+            var startIdx = sectionStartRange.Start + Scheme.SectionStartString.Length;
+            var endIdx = sectionEndRange.End - Scheme.SectionEndString.Length;
             currentLine.ResizeBetweenIndexes(startIdx, endIdx);
 
             if (Configuration.TrimSections)
@@ -341,9 +341,9 @@ namespace IniParser
 
             if (propertyAssigmentIdx.IsEmpty) return false;
 
-            var keyRange = StringBuffer.Range.WithIndexes(0, propertyAssigmentIdx.start - 1);
-            var valueStartIdx = propertyAssigmentIdx.end + 1;
-            var valueSize = currentLine.Count - propertyAssigmentIdx.end - 1;
+            var keyRange = StringBuffer.Range.WithIndexes(0, propertyAssigmentIdx.Start - 1);
+            var valueStartIdx = propertyAssigmentIdx.End + 1;
+            var valueSize = currentLine.Count - propertyAssigmentIdx.End - 1;
             var valueRange = StringBuffer.Range.FromIndexWithSize(valueStartIdx, valueSize);
 
             var key = currentLine.Substring(keyRange);

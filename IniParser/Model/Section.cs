@@ -121,8 +121,8 @@ namespace IniParser.Model
         /// </summary>
         public void Clear()
         {
-            ClearProperties();
-            ClearComments();
+            this.ClearProperties();
+            this.ClearComments();
         }
 
         /// <summary>
@@ -130,8 +130,8 @@ namespace IniParser.Model
         /// </summary>
         public void ClearComments()
         {
-            Comments.Clear();
-            Properties.ClearComments();
+            this.Comments.Clear();
+            this.Properties.ClearComments();
         }
 
         /// <summary>
@@ -139,7 +139,7 @@ namespace IniParser.Model
         /// </summary>
 		public void ClearProperties()
         {
-            Properties.Clear();
+            this.Properties.Clear();
         }
 
         /// <summary>
@@ -153,10 +153,12 @@ namespace IniParser.Model
         /// <param name="toMergeSection"></param>
         public void Merge(Section toMergeSection)
         {
-            Properties.Merge(toMergeSection.Properties);
+            this.Properties.Merge(toMergeSection.Properties);
 
             foreach (var comment in toMergeSection.Comments)
-                Comments.Add(comment);
+            {
+                this.Comments.Add(comment);
+            }
         }
 
         #region IDeepCloneable<T> Members

@@ -11,9 +11,9 @@ namespace IniParser.Configuration
 
         public IniFormattingConfiguration()
         {
-            NewLineType = Environment.NewLine == "\r\n" ? ENewLine.Windows : ENewLine.Unix_Mac;
-            NumSpacesBetweenAssigmentAndValue = 1;
-            NumSpacesBetweenKeyAndAssigment = 1;
+            this.NewLineType = Environment.NewLine == "\r\n" ? ENewLine.Windows : ENewLine.Unix_Mac;
+            this.NumSpacesBetweenAssigmentAndValue = 1;
+            this.NumSpacesBetweenKeyAndAssigment = 1;
         }
 
         /// <summary>
@@ -28,12 +28,12 @@ namespace IniParser.Configuration
         {
             get
             {
-                switch (NewLineType)
+                return this.NewLineType switch
                 {
-                    case ENewLine.Unix_Mac: return "\n";
-                    case ENewLine.Windows: return "\r\n";
-                    default: return "\n";
-                }
+                    ENewLine.Unix_Mac => "\n",
+                    ENewLine.Windows => "\r\n",
+                    _ => "\n",
+                };
             }
         }
 
@@ -51,8 +51,8 @@ namespace IniParser.Configuration
         {
             set
             {
-                _numSpacesBetweenKeyAndAssigment = value;
-                SpacesBetweenKeyAndAssigment = new string(' ', (int)value);
+                this._numSpacesBetweenKeyAndAssigment = value;
+                this.SpacesBetweenKeyAndAssigment = new string(' ', (int)value);
             }
         }
         public string SpacesBetweenKeyAndAssigment { get; private set; }
@@ -68,8 +68,8 @@ namespace IniParser.Configuration
         {
             set
             {
-                _numSpacesBetweenAssigmentAndValue = value;
-                SpacesBetweenAssigmentAndValue = new string(' ', (int)value);
+                this._numSpacesBetweenAssigmentAndValue = value;
+                this.SpacesBetweenAssigmentAndValue = new string(' ', (int)value);
             }
         }
         public string SpacesBetweenAssigmentAndValue { get; private set; }
@@ -82,7 +82,7 @@ namespace IniParser.Configuration
         #region IDeepCloneable<T> Members
         public IniFormattingConfiguration DeepClone()
         {
-            return MemberwiseClone() as IniFormattingConfiguration;
+            return this.MemberwiseClone() as IniFormattingConfiguration;
         }
 
         #endregion

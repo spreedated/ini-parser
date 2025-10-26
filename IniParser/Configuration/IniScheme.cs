@@ -43,10 +43,10 @@ namespace IniParser.Configuration
         /// </param>
         IniScheme(IniScheme ori)
         {
-            PropertyAssigmentString = ori.PropertyAssigmentString;
-            SectionStartString = ori.SectionStartString;
-            SectionEndString = ori.SectionEndString;
-            CommentString = ori.CommentString;
+            this.PropertyAssigmentString = ori.PropertyAssigmentString;
+            this.SectionStartString = ori.SectionStartString;
+            this.SectionEndString = ori.SectionEndString;
+            this.CommentString = ori.CommentString;
         }
 
         /// <summary>
@@ -60,8 +60,8 @@ namespace IniParser.Configuration
         /// </remarks>
         public string CommentString
         {
-            get => string.IsNullOrWhiteSpace(_commentString) ? ";" : _commentString;
-            set => _commentString = value?.Trim();
+            get => string.IsNullOrWhiteSpace(this._commentString) ? ";" : this._commentString;
+            set => this._commentString = value?.Trim();
         }
 
         /// <summary>
@@ -73,8 +73,8 @@ namespace IniParser.Configuration
         /// </remarks>
         public string SectionStartString
         {
-            get => string.IsNullOrWhiteSpace(_sectionStartString) ? "[" : _sectionStartString;
-            set => _sectionStartString = value?.Trim();
+            get => string.IsNullOrWhiteSpace(this._sectionStartString) ? "[" : this._sectionStartString;
+            set => this._sectionStartString = value?.Trim();
         }
 
 
@@ -87,8 +87,8 @@ namespace IniParser.Configuration
         /// </remarks>
         public string SectionEndString
         {
-            get => string.IsNullOrWhiteSpace(_sectionEndString) ? "]" : _sectionEndString;
-            set => _sectionEndString = value?.Trim();
+            get => string.IsNullOrWhiteSpace(this._sectionEndString) ? "]" : this._sectionEndString;
+            set => this._sectionEndString = value?.Trim();
         }
 
 
@@ -102,8 +102,8 @@ namespace IniParser.Configuration
         /// 
         public string PropertyAssigmentString
         {
-            get => string.IsNullOrWhiteSpace(_propertyAssigmentString) ? "=" : _propertyAssigmentString;
-            set => _propertyAssigmentString = value?.Trim();
+            get => string.IsNullOrWhiteSpace(this._propertyAssigmentString) ? "=" : this._propertyAssigmentString;
+            set => this._propertyAssigmentString = value?.Trim();
         }
         
         #region IDeepCloneable<T> Members

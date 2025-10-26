@@ -65,17 +65,14 @@ namespace IniParser
             get
             {
                 // Lazy initialization
-                if (_configuration == null)
-                {
-                    _configuration = new IniParserConfiguration();
-                }
+                this._configuration ??= new IniParserConfiguration();
 
                 return _configuration;
             }
 
             set
             {
-                _configuration = value.DeepClone();
+                this._configuration = value.DeepClone();
             }
         }
 
@@ -84,17 +81,14 @@ namespace IniParser
             get
             {
                 // Lazy initialization
-                if (_scheme == null)
-                {
-                    _scheme = new IniScheme();
-                }
+                this._scheme ??= new IniScheme();
 
                 return _scheme;
             }
 
             set
             {
-                _scheme = value.DeepClone();
+                this._scheme = value.DeepClone();
             }
         }
 
@@ -114,13 +108,13 @@ namespace IniParser
         {
             get
             {
-                if (!Sections.Contains(sectionName))
-                    if (CreateSectionsIfTheyDontExist)
-                        Sections.Add(sectionName);
+                if (!this.Sections.Contains(sectionName))
+                    if (this.CreateSectionsIfTheyDontExist)
+                        this.Sections.Add(sectionName);
                     else
                         return null;
 
-                return Sections[sectionName];
+                return this.Sections[sectionName];
             }
         }
 
@@ -135,16 +129,16 @@ namespace IniParser
         /// </summary>
         public void Clear()
         {
-            Global.Clear();
-            Sections.Clear();
+            this.Global.Clear();
+            this.Sections.Clear();
         }
         /// <summary>
         ///     Deletes all comments in all sections and properties values
         /// </summary>
         public void ClearAllComments()
         {
-            Global.ClearComments();
-            foreach (var section in Sections)
+            this.Global.ClearComments();
+            foreach (var section in this.Sections)
             {
                 section.ClearComments();
                 section.Properties.ClearComments();
@@ -163,8 +157,8 @@ namespace IniParser
         {
             if (toMergeIniData == null) return;
 
-            Global.Merge(toMergeIniData.Global);
-            Sections.Merge(toMergeIniData.Sections);
+            this.Global.Merge(toMergeIniData.Global);
+            this.Sections.Merge(toMergeIniData.Sections);
         }
 
         #region IDeelCloneable<T> Members

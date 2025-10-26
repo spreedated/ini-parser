@@ -20,28 +20,28 @@ namespace IniParser.Tests.Model
         public void test_range_creation()
         {
             var r1 = StringBuffer.Range.FromIndexWithSize(4, 6);
-            Assert.That(r1.start, Is.EqualTo(4));
-            Assert.That(r1.end, Is.EqualTo(9));
-            Assert.That(r1.size, Is.EqualTo(6));
+            Assert.That(r1.Start, Is.EqualTo(4));
+            Assert.That(r1.End, Is.EqualTo(9));
+            Assert.That(r1.Size, Is.EqualTo(6));
 
             var r2 = StringBuffer.Range.WithIndexes(4, 4);
-            Assert.That(r2.start, Is.EqualTo(4));
-            Assert.That(r2.end, Is.EqualTo(4));
-            Assert.That(r2.size, Is.EqualTo(1));
+            Assert.That(r2.Start, Is.EqualTo(4));
+            Assert.That(r2.End, Is.EqualTo(4));
+            Assert.That(r2.Size, Is.EqualTo(1));
         }
 
         [Test]
         public void test_empty_range()
         {
             var r1 = StringBuffer.Range.FromIndexWithSize(4, 0);
-            Assert.That(r1.start, Is.EqualTo(0));
-            Assert.That(r1.end, Is.EqualTo(0));
-            Assert.That(r1.size, Is.EqualTo(0));
+            Assert.That(r1.Start, Is.EqualTo(0));
+            Assert.That(r1.End, Is.EqualTo(0));
+            Assert.That(r1.Size, Is.EqualTo(0));
 
             var r2 = StringBuffer.Range.WithIndexes(4, 2);
-            Assert.That(r2.start, Is.EqualTo(0));
-            Assert.That(r2.end, Is.EqualTo(0));
-            Assert.That(r2.size, Is.EqualTo(0));
+            Assert.That(r2.Start, Is.EqualTo(0));
+            Assert.That(r2.End, Is.EqualTo(0));
+            Assert.That(r2.Size, Is.EqualTo(0));
         }
             
         [Test]
@@ -185,17 +185,17 @@ namespace IniParser.Tests.Model
             var buffer = InitBufferAndReadLine(str);
 
             var result = buffer.FindSubstring("world");
-            Assert.That(result.start, Is.EqualTo(10));
-            Assert.That(result.size, Is.EqualTo(5));
+            Assert.That(result.Start, Is.EqualTo(10));
+            Assert.That(result.Size, Is.EqualTo(5));
 
             result = buffer.FindSubstring("");
-            Assert.That(result.start, Is.EqualTo(0));
-            Assert.That(result.size, Is.EqualTo(0));
+            Assert.That(result.Start, Is.EqualTo(0));
+            Assert.That(result.Size, Is.EqualTo(0));
 
 
             result = buffer.FindSubstring("d!");
-            Assert.That(result.start, Is.EqualTo(14));
-            Assert.That(result.size, Is.EqualTo(2));
+            Assert.That(result.Start, Is.EqualTo(14));
+            Assert.That(result.Size, Is.EqualTo(2));
         }
 
         [Test]
@@ -205,24 +205,24 @@ namespace IniParser.Tests.Model
 
             buffer.Trim();
             var result = buffer.FindSubstring("world");
-            Assert.That(result.start, Is.EqualTo(10));
-            Assert.That(result.size, Is.EqualTo(5));
+            Assert.That(result.Start, Is.EqualTo(10));
+            Assert.That(result.Size, Is.EqualTo(5));
 
             result = buffer.FindSubstring("");
-            Assert.That(result.start, Is.EqualTo(0));
-            Assert.That(result.size, Is.EqualTo(0));
+            Assert.That(result.Start, Is.EqualTo(0));
+            Assert.That(result.Size, Is.EqualTo(0));
 
             result = buffer.FindSubstring("d!");
-            Assert.That(result.start, Is.EqualTo(14));
-            Assert.That(result.size, Is.EqualTo(2));
+            Assert.That(result.Start, Is.EqualTo(14));
+            Assert.That(result.Size, Is.EqualTo(2));
 
             result = buffer.FindSubstring(" ");
-            Assert.That(result.start, Is.EqualTo(5));
-            Assert.That(result.size, Is.EqualTo(1));
+            Assert.That(result.Start, Is.EqualTo(5));
+            Assert.That(result.Size, Is.EqualTo(1));
 
             result = buffer.FindSubstring("!");
-            Assert.That(result.start, Is.EqualTo(15));
-            Assert.That(result.size, Is.EqualTo(1));
+            Assert.That(result.Start, Is.EqualTo(15));
+            Assert.That(result.Size, Is.EqualTo(1));
         }
 
         [Test]

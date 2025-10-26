@@ -9,7 +9,7 @@ namespace IniParser.Parser
         {
             int _start, _size;
 
-            public int start
+            public int Start
             {
                 get
                 {
@@ -22,7 +22,7 @@ namespace IniParser.Parser
                 }
             }
 
-            public int size
+            public int Size
             {
                 get
                 {
@@ -35,7 +35,7 @@ namespace IniParser.Parser
                 }
             }
 
-            public int end
+            public int End
             {
                 get
                 {
@@ -47,15 +47,15 @@ namespace IniParser.Parser
 
             public void Reset()
             {
-                start = 0;
-                size = 0;
+                this.Start = 0;
+                this.Size = 0;
             }
 
             public static Range FromIndexWithSize(int start, int size)
             {
                 if (start < 0 || size <= 0) return new Range();
 
-                return new Range { start = start, size = size };
+                return new Range { Start = start, Size = size };
             }
 
             public static Range WithIndexes(int start, int end)
@@ -66,15 +66,15 @@ namespace IniParser.Parser
                     return new Range();
                 }
 
-                return new Range { start = start, size = end - start + 1 };
+                return new Range { Start = start, Size = end - start + 1 };
             }
 
             public override string ToString()
             {
                 return string.Format("[start:{0}, end:{1} size: {2}]",
-                                     start,
-                                     end,
-                                     size);
+                                     this.Start,
+                                     this.End,
+                                     this.Size);
             }
         }
 
@@ -98,7 +98,7 @@ namespace IniParser.Parser
             _bufferIndexes = bufferIndexes;
         }
 
-        public int Count { get { return _bufferIndexes.size; } }
+        public int Count { get { return _bufferIndexes.Size; } }
 
         public bool IsEmpty
         {
@@ -109,14 +109,14 @@ namespace IniParser.Parser
         {
             get
             {
-                int startIdx = _bufferIndexes.start;
-                while (startIdx <= _bufferIndexes.end
+                int startIdx = _bufferIndexes.Start;
+                while (startIdx <= _bufferIndexes.End
                     && char.IsWhiteSpace(_buffer[startIdx]))
                 {
                     startIdx++;
                 }
 
-                return startIdx > _bufferIndexes.end;
+                return startIdx > _bufferIndexes.End;
             }
         }
 
@@ -124,7 +124,7 @@ namespace IniParser.Parser
         {
             get
             {
-                return _buffer[idx + _bufferIndexes.start];
+                return _buffer[idx + _bufferIndexes.Start];
             }
         }
 
@@ -138,15 +138,15 @@ namespace IniParser.Parser
         {
             int subStringLength = subString.Length;
 
-            if (subStringLength <= 0 || Count < subStringLength)
+            if (subStringLength <= 0 || this.Count < subStringLength)
             {
                 return new Range();
             }
 
-            startingIndex += _bufferIndexes.start;
+            startingIndex += _bufferIndexes.Start;
 
             // Search the first char of the substring
-            for (int firstCharIdx = startingIndex; firstCharIdx <= _bufferIndexes.end; ++firstCharIdx)
+            for (int firstCharIdx = startingIndex; firstCharIdx <= _bufferIndexes.End; ++firstCharIdx)
             {
                 if (_buffer[firstCharIdx] != subString[0])
                 {
@@ -155,7 +155,7 @@ namespace IniParser.Parser
 
                 // Fail now if the substring can't fit given the size of the
                 // buffer and the search start index
-                if (firstCharIdx + subStringLength - 1 > _bufferIndexes.end)
+                if (firstCharIdx + subStringLength - 1 > _bufferIndexes.End)
                 {
                     return new Range();
                 }
@@ -176,7 +176,7 @@ namespace IniParser.Parser
                     continue;
                 }
 
-                 return Range.FromIndexWithSize(firstCharIdx - _bufferIndexes.start, subStringLength);
+                 return Range.FromIndexWithSize(firstCharIdx - _bufferIndexes.Start, subStringLength);
             }
 
             return new Range();
@@ -214,35 +214,41 @@ namespace IniParser.Parser
 
         public void Resize(Range range)
         {
-            Resize(range.start, range.size);
+            this.Resize(range.Start, range.Size);
         }
 
         public void Resize(int newSize)
         {
-            Resize(0, newSize);
+            this.Resize(0, newSize);
         }
 
         public void Resize(int startIdx, int size)
         { 
-            if (startIdx < 0 || size < 0) return;
+            if (startIdx < 0 || size < 0)
+            {
+                return;
+            }
 
-            var internalStartIdx = _bufferIndexes.start + startIdx;
+            var internalStartIdx = _bufferIndexes.Start + startIdx;
             var internalEndIdx = internalStartIdx + size - 1;
 
-            if (internalEndIdx > _bufferIndexes.end) return;
-            
-            _bufferIndexes.start = internalStartIdx;
-            _bufferIndexes.size = size;
+            if (internalEndIdx > _bufferIndexes.End)
+            {
+                return;
+            }
+
+            _bufferIndexes.Start = internalStartIdx;
+            _bufferIndexes.Size = size;
         }
 
         public void ResizeBetweenIndexes(int startIdx, int endIdx)
         {
-            Resize(startIdx, endIdx - startIdx + 1);
+            this.Resize(startIdx, endIdx - startIdx + 1);
         }
 
         public StringBuffer Substring(Range range)
         {
-            var copy = SwallowCopy();
+            var copy = this.SwallowCopy();
             copy.Resize(range);
             return copy;
         }
@@ -254,10 +260,10 @@ namespace IniParser.Parser
 
         public void TrimStart()
         {
-            if (IsEmpty) return;
+            if (this.IsEmpty) return;
 
-            int startIdx = _bufferIndexes.start;
-            while (startIdx <= _bufferIndexes.end
+            int startIdx = _bufferIndexes.Start;
+            while (startIdx <= _bufferIndexes.End
                 && char.IsWhiteSpace(_buffer[startIdx]))
             {
                 startIdx++;
@@ -266,39 +272,39 @@ namespace IniParser.Parser
             // We need to make a copy of this value because _bufferIndexes.end
             // is a computed property, so it will change if we modify
             // _bufferIndexes.start or _bufferIndexes.size
-            int endIdx = _bufferIndexes.end;
+            int endIdx = _bufferIndexes.End;
 
-            _bufferIndexes.start = startIdx;
-            _bufferIndexes.size = endIdx - startIdx + 1;
+            _bufferIndexes.Start = startIdx;
+            _bufferIndexes.Size = endIdx - startIdx + 1;
         }
 
         public void TrimEnd()
         {
-            if (IsEmpty) return;
+            if (this.IsEmpty) return;
 
-            int endIdx = _bufferIndexes.end;
+            int endIdx = _bufferIndexes.End;
 
-            while (endIdx >= _bufferIndexes.start
+            while (endIdx >= _bufferIndexes.Start
                 && char.IsWhiteSpace(_buffer[endIdx]))
             {
                 endIdx--;
             }
 
-            _bufferIndexes.size = endIdx - _bufferIndexes.start + 1;
+            _bufferIndexes.Size = endIdx - _bufferIndexes.Start + 1;
         }
         public void Trim()
         {
-            TrimEnd();
-            TrimStart();
+            this.TrimEnd();
+            this.TrimStart();
         }
 
         public bool StartsWith(string str)
         {
             if (string.IsNullOrEmpty(str)) return false;
-            if (IsEmpty) return false;
+            if (this.IsEmpty) return false;
 
             int strIdx = 0;
-            int bufferIdx = _bufferIndexes.start;
+            int bufferIdx = _bufferIndexes.Start;
 
             for (; strIdx < str.Length; ++strIdx, ++bufferIdx)
             {
@@ -310,24 +316,24 @@ namespace IniParser.Parser
 
         public override string ToString()
         {
-            return new string(_buffer.ToArray(),
-                               _bufferIndexes.start,
-                               _bufferIndexes.size);
+            return new string([.. _buffer],
+                               _bufferIndexes.Start,
+                               _bufferIndexes.Size);
         }
 
         public string ToString(Range range)
         {
             if (range.IsEmpty
-             || range.start < 0
-             || range.size > _bufferIndexes.size
-             || range.start + _bufferIndexes.start > _bufferIndexes.end)
+             || range.Start < 0
+             || range.Size > _bufferIndexes.Size
+             || range.Start + _bufferIndexes.Start > _bufferIndexes.End)
             {
                 return string.Empty;
             }
 
-            return new string(_buffer.ToArray(),
-                              _bufferIndexes.start + range.start,
-                              range.size);
+            return new string([.. _buffer],
+                              _bufferIndexes.Start + range.Start,
+                              range.Size);
         }
 
         TextReader _dataSource;

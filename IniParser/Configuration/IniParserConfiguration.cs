@@ -31,14 +31,14 @@ namespace IniParser.Configuration
         /// </param>
         IniParserConfiguration(IniParserConfiguration ori)
         {
-            AllowKeysWithoutSection = ori.AllowKeysWithoutSection;
-            DuplicatePropertiesBehaviour = ori.DuplicatePropertiesBehaviour;
-            ConcatenateDuplicatePropertiesString = ori.ConcatenateDuplicatePropertiesString;
-            AllowDuplicateSections = ori.AllowDuplicateSections;
-            ThrowExceptionsOnError = ori.ThrowExceptionsOnError;
-            SkipInvalidLines = ori.SkipInvalidLines;
-            TrimSections = ori.TrimSections;
-            TrimProperties = ori.TrimProperties;
+            this.AllowKeysWithoutSection = ori.AllowKeysWithoutSection;
+            this.DuplicatePropertiesBehaviour = ori.DuplicatePropertiesBehaviour;
+            this.ConcatenateDuplicatePropertiesString = ori.ConcatenateDuplicatePropertiesString;
+            this.AllowDuplicateSections = ori.AllowDuplicateSections;
+            this.ThrowExceptionsOnError = ori.ThrowExceptionsOnError;
+            this.SkipInvalidLines = ori.SkipInvalidLines;
+            this.TrimSections = ori.TrimSections;
+            this.TrimProperties = ori.TrimProperties;
         }
 
         /// <summary>
@@ -179,6 +179,7 @@ namespace IniParser.Configuration
         ///     saving memory and allocations.
         /// </summary>
         public bool ParseComments { get; set; } = true;
+
         #region IDeepCloneable<T> Members
         /// <summary>
         /// Creates a new object that is a copy of the current instance.

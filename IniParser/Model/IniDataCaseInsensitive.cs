@@ -15,15 +15,15 @@ namespace IniParser.Model
         /// </summary>
         public IniDataCaseInsensitive()
         {
-            Sections = new SectionCollection(StringComparer.OrdinalIgnoreCase);
-            Global = new PropertyCollection(StringComparer.OrdinalIgnoreCase);
+            this.Sections = new SectionCollection(StringComparer.OrdinalIgnoreCase);
+            this.Global = new PropertyCollection(StringComparer.OrdinalIgnoreCase);
             _scheme = new IniScheme();
         }
 
         public IniDataCaseInsensitive(IniScheme scheme)
         {
-            Sections = new SectionCollection(StringComparer.OrdinalIgnoreCase);
-            Global = new PropertyCollection(StringComparer.OrdinalIgnoreCase);
+            this.Sections = new SectionCollection(StringComparer.OrdinalIgnoreCase);
+            this.Global = new PropertyCollection(StringComparer.OrdinalIgnoreCase);
             _scheme = scheme.DeepClone();
         }
 
@@ -32,12 +32,11 @@ namespace IniParser.Model
         /// Copies an instance of the <see cref="IniParser.Model.IniDataCaseInsensitive"/> class
         /// </summary>
         /// <param name="ori">Original </param>
-        public IniDataCaseInsensitive(IniData ori)
-            : this()
+        public IniDataCaseInsensitive(IniData ori) : this()
         {
-            Global = ori.Global.DeepClone();
-            Configuration = ori.Configuration.DeepClone();
-            Sections = new SectionCollection(ori.Sections, StringComparer.OrdinalIgnoreCase);
+            this.Global = ori.Global.DeepClone();
+            this.Configuration = ori.Configuration.DeepClone();
+            this.Sections = new SectionCollection(ori.Sections, StringComparer.OrdinalIgnoreCase);
         }
     }
     
