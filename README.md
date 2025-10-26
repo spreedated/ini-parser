@@ -1,11 +1,9 @@
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/spreed)
+
 # INI File Parser
 
 A .NET, Mono and Unity3d compatible(*) library for reading/writing INI data from IO streams, file streams, and strings written in C#.
-
 Also implements merging operations, both for complete ini files, sections, or even just a subset of the keys contained by the files.
-
-
-(*) This library is 100% .NET code and does not have any dependencies on Windows API calls in order to be portable.
 
 ## Getting Started
 
@@ -39,7 +37,7 @@ data["UI"]["fullscreen"] = "true";
 parser.WriteFile("Configuration.ini", data);
 ```
 
-Head to the [wiki](https://github.com/rickyah/ini-parser/wiki) for more usage examples, or [check out the code of the example project](https://github.com/rickyah/ini-parser/blob/development/src/IniFileParser.Example/Program.cs)
+For more usage examples [check out the code of the example project](/IniParser.Example/Program.cs)
 
 
 ## Merging ini files
@@ -76,3 +74,14 @@ To query, add or remove comments, access the property `Comments` available both 
 var listOfCommentsForSection = config.["user_settings"].Comments;
 var listOfCommentsForKey = config["user_settings"].GetKeyData("resolution").Comments;
 ```
+
+## Contributing
+Contributions are welcome! Feel free to submit issues or pull requests.
+
+## License
+This project is licensed under the [MIT License](LICENSE.txt).
+
+## Acknowledgments
+Thanks for checking out Year In Progress! Stay inspired and keep pushing forward!
+
+[!["Buy Me A Coffee"](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://buymeacoffee.com/spreed)

@@ -2,7 +2,7 @@ using System;
 
 namespace IniParser.Example
 {
-    public class MainProgram
+    public static class MainProgram
     {
         public static void Main()
         {
@@ -20,17 +20,17 @@ setMaxErrors = 2
 [Users]
 ricky = rickypass
 patty = pattypass ";
-
+            
             //Create an instance of a ini file parser
-            var parser = new IniDataParser();
-
+            IniDataParser parser = new();
+            
             // This is a special ini file where we use the '#' character for comment lines
             // instead of ';' so we need to change the configuration of the parser:
             parser.Scheme.CommentString = "#";
 
             // Here we'll be storing the contents of the ini file we are about to read:
             IniData parsedData = parser.Parse(testIniFile);
-
+            
             // Write down the contents of the ini file to the console
             Console.WriteLine("---- Printing contents of the INI file ----\n");
             Console.WriteLine(parsedData);
