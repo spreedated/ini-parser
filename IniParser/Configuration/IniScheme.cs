@@ -5,7 +5,7 @@
     /// key/values or comments.
     /// Used IniDataParser to read INI files, and an IIniDataFormatter to write a new ini file string.
     /// </summary>
-	public class IniScheme : IDeepCloneable<IniScheme>
+  public class IniScheme : IDeepCloneable<IniScheme>
     {
         /// <summary>
         ///     Ctor.

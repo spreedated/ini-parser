@@ -225,7 +225,7 @@ namespace IniParser.Model
         }
 
         /// <summary>
-        /// 	Deletes all properties in this collection.
+        ///   Deletes all properties in this collection.
         /// </summary>
         public void Clear()
         {

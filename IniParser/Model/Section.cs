@@ -137,7 +137,7 @@ namespace IniParser.Model
         /// <summary>
         /// Deletes all the properties pairs in this section.
         /// </summary>
-		public void ClearProperties()
+    public void ClearProperties()
         {
             this.Properties.Clear();
         }

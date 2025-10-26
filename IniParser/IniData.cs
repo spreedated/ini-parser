@@ -93,9 +93,9 @@ namespace IniParser
         }
 
         /// <summary>
-        /// 	Global sections. Contains properties which are not
-        /// 	enclosed in any section (i.e. they are defined at the beginning 
-        /// 	of the file, before any section.
+        ///   Global sections. Contains properties which are not
+        ///   enclosed in any section (i.e. they are defined at the beginning 
+        ///   of the file, before any section.
         /// </summary>
         public PropertyCollection Global { get; protected set; }
 

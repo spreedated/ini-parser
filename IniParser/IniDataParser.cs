@@ -10,9 +10,9 @@ using System.IO;
 namespace IniParser
 {
     /// <summary>
-	/// 	Responsible for parsing an string from an ini file, and creating
-	/// 	an <see cref="IniData"/> structure.
-	/// </summary>
+  ///   Responsible for parsing an string from an ini file, and creating
+  ///   an <see cref="IniData"/> structure.
+  /// </summary>
     public partial class IniDataParser
     {
         #region Initialization
