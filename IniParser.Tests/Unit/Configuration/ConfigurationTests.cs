@@ -168,7 +168,7 @@ name = Marble Zone
 
             var iniData = parser.Parse("");
             iniData.CreateSectionsIfTheyDontExist = true;
-            Assert.IsNotNull(iniData["noname"]);
+            Assert.That(iniData["noname"], Is.Not.Null);
         }
     }
 }
