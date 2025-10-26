@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <IsPackable>False</IsPackable>
+    <ReleaseVersion></ReleaseVersion>
+  </PropertyGroup>
+
+  <!-- Auto-select supported target frameworks based on MSBuild version -->
+  <PropertyGroup>
+    <TargetFrameworks>net6.0;net472</TargetFrameworks>
+  </PropertyGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\IniParser\IniParser.csproj" />
+    </ItemGroup>
+
+  <ItemGroup>
+    <None Update="TestIniFile.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+</Project>
